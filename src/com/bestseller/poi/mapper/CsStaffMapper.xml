@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bestseller.poi.mapper.CsStaffMapper">
+  	<insert id ="batchSave" parameterType="java.util.List" >
+             insert into ODS_EC_CS_STAFF_PERFORMANCE
+             (Day_ID,Shop_Code,Pre_After,WangWang_No,Staff_Name,Visitor_Order_Value_After_Consultation,
+             Consultation,Reception,Sales_Value,Avg_Response,Basket_Value,Basket_Size,Satisfaction,
+             Sending_Rate_Of_Evaluation,Avg_Reception_Time,Avg_Reception_Time_Second,Visitor_Order_Pay_Rate,Return_Value,Online_Time,Online_Time_Second,QA_Rate,
+             WangWang_Reply_rate,Not_reply,Remark_A,Remark_B,Remark_C)
+             select
+             Day_ID,Shop_Code,Pre_After,WangWang_No,Staff_Name,VOValue_After_Consultation,Consultation,Reception,Sales_Value,Avg_Response,Basket_Value,Basket_Size,Satisfaction,Sending_Rate_Of_Evaluation,Avg_Reception_Time,Avg_Reception_Time_Second,Visitor_Order_Pay_Rate,Return_Value,Online_Time,Online_Time_Second,
+             QA_Rate,WangWang_Reply_rate,Not_reply,Remark_A,Remark_B,Remark_C
+             from
+             <foreach collection ="list" item="csStaffes" index= "index" separator="union" open="(" close=")">
+ 			 select
+                 #{csStaffes.dayId,jdbcType=VARCHAR} as Day_ID,
+                 #{csStaffes.shopCode,jdbcType=VARCHAR} as Shop_Code,
+                 #{csStaffes.preAfter,jdbcType=VARCHAR} as Pre_After,
+                 #{csStaffes.wwNo,jdbcType=VARCHAR} as WangWang_No,
+                 #{csStaffes.staffName,jdbcType=VARCHAR} as Staff_Name,
+                 #{csStaffes.vovaConsulation,jdbcType=NUMERIC} as VOValue_After_Consultation,
+                 #{csStaffes.consulation,jdbcType=NUMERIC} as Consultation,
+                 #{csStaffes.reception,jdbcType=NUMERIC} as Reception,
+                 #{csStaffes.salesValue,jdbcType=NUMERIC} as Sales_Value,
+                 #{csStaffes.avgResponse,jdbcType=NUMERIC} as Avg_Response,
+                 #{csStaffes.basketValue,jdbcType=NUMERIC} as Basket_Value,
+                 #{csStaffes.basketSize,jdbcType=NUMERIC} as Basket_Size,
+                 #{csStaffes.satisfaction,jdbcType=NUMERIC} as Satisfaction,
+                 #{csStaffes.sroEvaluation,jdbcType=NUMERIC} as Sending_Rate_Of_Evaluation,
+                 #{csStaffes.arTime,jdbcType=VARCHAR} as Avg_Reception_Time,
+                 #{csStaffes.artSecond,jdbcType=NUMERIC} as Avg_Reception_Time_Second,
+                 #{csStaffes.vopRate,jdbcType=NUMERIC} as Visitor_Order_Pay_Rate,
+                 #{csStaffes.returnValue,jdbcType=NUMERIC} as Return_Value,
+                 #{csStaffes.onlineTime,jdbcType=VARCHAR} as Online_Time,
+                 #{csStaffes.otSecond,jdbcType=NUMERIC} as Online_Time_Second,
+                 #{csStaffes.qaRate,jdbcType=NUMERIC} as QA_Rate,
+                 #{csStaffes.wwrr,jdbcType=NUMERIC} as WangWang_Reply_rate,
+                 #{csStaffes.notReply,jdbcType=NUMERIC} as Not_reply,
+                 #{csStaffes.remarkA,jdbcType=NUMERIC} as Remark_A,
+                 #{csStaffes.remarkB,jdbcType=NUMERIC} as Remark_B,
+                 #{csStaffes.remarkC,jdbcType=VARCHAR} as Remark_C
+              from dummy
+             </foreach >
+      </insert >
+  	
+  	
+       <select id="getById" resultType="CsStaff" parameterType="CsStaff">
+      	select Day_ID as dayId,Shop_Code as shopCode,Pre_After as preAfter,WangWang_No as wwNo,Staff_Name as staffName,
+      	Visitor_Order_Value_After_Consultation as vovaConsulation,Consultation as consulation,Reception as reception,Sales_Value as salesValue,
+      	Avg_Response as avgResponse,Basket_Value as basketValue,Basket_Size as basketSize,Satisfaction as satisfaction,
+      	Sending_Rate_Of_Evaluation as sroEvaluation,Avg_Reception_Time as arTime,
+      	Avg_Reception_Time_Second as artSecond,Visitor_Order_Pay_Rate as vopRate,
+      	Return_Value as returnValue,Online_Time as onlineTime,Online_Time_Second as otSecond,QA_Rate as qaRate,WangWang_Reply_rate as wwrr,
+      	Not_reply as notReply,Remark_A as remarkA,Remark_B as remarkB,Remark_C as remarkC 
+      	from  ODS_EC_CS_STAFF_PERFORMANCE
+      	<where>
+      		<if test="dayId!=null">
+      			Day_ID=#{dayId,jdbcType=VARCHAR}
+      		</if>
+      		<if test="shopCode!=null">
+      			and Shop_Code=#{shopCode,jdbcType=VARCHAR}
+      		</if>
+      	</where>
+      </select>
+      
+      <delete id="deleteAll" parameterType="CsStaff">
+      	delete from ODS_EC_CS_STAFF_PERFORMANCE
+      	<where>
+      		<if test="dayId!=null">
+      			Day_ID=#{dayId,jdbcType=VARCHAR}
+      		</if>
+      		<if test="shopCode!=null">
+      			and Shop_Code=#{shopCode,jdbcType=VARCHAR}
+      		</if>
+      	</where>
+      </delete>
+</mapper>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bestseller.poi.mapper.DiamondStarShopMapper">
+	<insert id ="batchSave" parameterType="java.util.Map">
+             insert into 
+             <if test="sheetName2=='diamond-day'">
+             	ODS_MARKETING_DIAMOND_STARSHOP_DAY
+             </if>
+             <if test="sheetName2=='diamond-week'">
+             	ODS_MARKETING_DIAMOND_STARSHOP_WEEK
+             </if>
+             <if test="sheetName2=='diamond-month'">
+             	ODS_MARKETING_DIAMOND_STARSHOP_MONTH
+             </if>
+             (Conditio,Unit,Project,Impression,Click,CTR,Cost,CPM,CPC,Three_Day_ROI,
+             Seven_Day_ROI,Fifteen_Day_ROI,Three_Day_Orders,Seven_Day_Orders,Fifteen_Day_Orders
+             ,Shop_Bookmark,Product_bookmark,Visits,Three_Day_Visits_after_Impression,Seven_Day_Visits_after_Impression
+             ,Fifteen_Day_Visits_after_Impression,Three_Day_ROI_after_Impression,Seven_Day_ROI_after_Impression,Fifteen_Day_ROI_after_Impression,
+             Seven_Day_Amount,Fifteen_Day_Amount,shop_code,Customer_Category,Diamond_StarShop,day_id)
+             select
+             Conditio,Unit,Project,Impression,Click,CTR,Cost,CPM,CPC,Three_Day_ROI,
+             Seven_Day_ROI,Fifteen_Day_ROI,Three_Day_Orders,Seven_Day_Orders,Fifteen_Day_Orders
+             ,Shop_Bookmark,Product_bookmark,Visits,Three_Day_Visits_after,Seven_Day_Visits_after
+             ,Fifteen_Day_Visits_after,Three_Day_ROI_after,Seven_Day_ROI_after,Fifteen_Day_ROI_after,
+             Seven_Day_Amount,Fifteen_Day_Amount,shop_code,Customer_Category,Diamond_StarShop,day_id
+             from
+             <foreach collection ="dsses" item="dsses" index= "index" separator="union" open="(" close=")">
+ 			 select
+ 			 #{dsses.conditio,jdbcType=VARCHAR} as Conditio,
+ 			 #{dsses.unit,jdbcType=VARCHAR} as Unit,
+ 			 #{dsses.project,jdbcType=VARCHAR} as Project,
+ 			 #{dsses.impression,jdbcType=NUMERIC} as Impression,
+ 			 #{dsses.click,jdbcType=NUMERIC} as Click,
+ 			 #{dsses.ctr,jdbcType=NUMERIC} as CTR,
+ 			 #{dsses.cost,jdbcType=NUMERIC} as Cost,
+ 			 #{dsses.cpm,jdbcType=NUMERIC} as CPM,
+ 			 #{dsses.cpc,jdbcType=NUMERIC} as CPC,
+ 			 #{dsses.tdRoi,jdbcType=NUMERIC} as Three_Day_ROI,
+ 			 #{dsses.sdRoi,jdbcType=NUMERIC} as Seven_Day_ROI,
+ 			 #{dsses.fdRoi,jdbcType=NUMERIC} as Fifteen_Day_ROI,
+ 			 #{dsses.tdOrders,jdbcType=NUMERIC} as Three_Day_Orders,
+ 			 #{dsses.sdOrders,jdbcType=NUMERIC} as Seven_Day_Orders,
+ 			 #{dsses.fdOrders,jdbcType=NUMERIC} as Fifteen_Day_Orders,
+ 			 #{dsses.sBookmark,jdbcType=NUMERIC} as Shop_Bookmark,
+ 			 #{dsses.pBookmark,jdbcType=NUMERIC} as Product_bookmark,
+ 			 #{dsses.visits,jdbcType=NUMERIC} as Visits,
+ 			 #{dsses.tdVisits,jdbcType=NUMERIC} as Three_Day_Visits_after,
+ 			 #{dsses.sdVisits,jdbcType=NUMERIC} as Seven_Day_Visits_after,
+ 			 #{dsses.fdVisits,jdbcType=NUMERIC} as Fifteen_Day_Visits_after,
+ 			 #{dsses.tdvImpre,jdbcType=NUMERIC} as Three_Day_ROI_after,
+ 			 #{dsses.sdvImpre,jdbcType=NUMERIC} as Seven_Day_ROI_after,
+ 			 #{dsses.fdvImpre,jdbcType=NUMERIC} as Fifteen_Day_ROI_after,
+ 			 #{dsses.sdAmount,jdbcType=NUMERIC} as Seven_Day_Amount,
+ 			 #{dsses.fdAmount,jdbcType=NUMERIC} as Fifteen_Day_Amount,
+ 			 #{dsses.sCode,jdbcType=VARCHAR} as shop_code,
+ 			 #{dsses.cCategory,jdbcType=VARCHAR} as Customer_Category,
+ 			 #{dsses.dStarShop,jdbcType=VARCHAR} as Diamond_StarShop,
+ 			 #{dsses.dayId,jdbcType=VARCHAR} as day_id
+ 			 from dummy
+             </foreach >
+      </insert >
+      
+      <select id="getById" parameterType="java.util.Map" resultType="DiamondStarShop">
+      	select Conditio as conditio,Unit as unit,Project as project,Impression as impression,Click as click,CTR as ctr,
+      	Cost as cost,CPM as cpm,CPC as cpc,Three_Day_ROI as tdRoi,
+      	Seven_Day_ROI as sdRoi,Fifteen_Day_ROI as fdRoi,Three_Day_Orders as tdOrders,Seven_Day_Orders as sdOrders,Fifteen_Day_Orders as fdOrders,
+      	Shop_Bookmark as sBookmark,Product_bookmark as pBookmark,Visits as visits,Three_Day_Visits_after_Impression as tdVisits,Seven_Day_Visits_after_Impression as sdVisits,
+      	Fifteen_Day_ROI_after_Impression as fdVisits,Three_Day_ROI_after_Impression as tdvImpre,Seven_Day_ROI_after_Impression as sdvImpre,Fifteen_Day_ROI_after_Impression as fdvImpre,
+      	Seven_Day_Amount as sdAmount,Fifteen_Day_Amount as fdAmount,shop_code as sCode,Customer_Category as cCategory,Diamond_StarShop as dStarShop,day_id as dayId
+        from
+        <if test="sheetName2=='diamond-day'">
+        	ODS_MARKETING_DIAMOND_STARSHOP_DAY
+        </if>
+        <if test="sheetName2=='diamond-week'">
+        	ODS_MARKETING_DIAMOND_STARSHOP_WEEK
+        </if>
+        <if test="sheetName2=='diamond-month'">
+        	ODS_MARKETING_DIAMOND_STARSHOP_MONTH
+        </if>
+        <where>
+        	<if test="dss.dayId!=null">
+        		day_id=#{dss.dayId,jdbcType=VARCHAR}
+        	</if>
+        	<if test="dss.sCode!=null">
+        		and shop_code=#{dss.sCode,jdbcType=VARCHAR}
+        	</if>
+        </where>
+      </select>
+      
+      
+      <delete id="deleteAll" parameterType="java.util.Map">
+      	delete from
+      		<if test="sheetName2=='diamond-day'">
+        	ODS_MARKETING_DIAMOND_STARSHOP_DAY m
+	        </if>
+	        <if test="sheetName2=='diamond-week'">
+	        	ODS_MARKETING_DIAMOND_STARSHOP_WEEK m
+	        </if>
+	        <if test="sheetName2=='diamond-month'">
+	        	ODS_MARKETING_DIAMOND_STARSHOP_MONTH m
+	        </if>
+	        <where>
+	        	<if test="dss.dayId!=null">
+	        		m.day_id=#{dss.dayId,jdbcType=VARCHAR}
+	        	</if>
+	        	<if test="dss.sCode!=null">
+	        		and m.shop_code=#{dss.sCode,jdbcType=VARCHAR}
+	        	</if>
+	        </where>
+      </delete>
+</mapper>

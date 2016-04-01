@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bestseller.poi.mapper.TrafficSourceMapper">
+	<insert id ="batchSave" parameterType="java.util.List" >
+             insert into ODS_EC_TRAFFIC_SOURCE_DAY
+             (Shop_Code,day_id,Internal_Traffic_Sourse_Detail_Num,Internal_Traffic_Sourse_Detail,Traffic_Sourse,Traffic_Sourse_Detail,UV,PV,Book_Mark,Shopping_Cart,Loss_Rate,Create_Order_Value,Create_Customer_Qty,Sales_Value,Paid_Customer_Qty)
+             select
+             Shop_Code,day_id,Sourse_Detail_Num,Sourse_Detail,Traffic_Sourse,Traffic_Sourse_Detail,UV,PV,Book_Mark,Shopping_Cart,Loss_Rate,Create_Order_Value,Create_Customer_Qty,Sales_Value,Paid_Customer_Qty
+             from
+             <foreach collection ="list" item="tses" index= "index" separator="union" open="(" close=")">
+ 			 select
+                 #{tses.shopCode,jdbcType=VARCHAR} as Shop_Code,
+                 #{tses.dayId,jdbcType=VARCHAR} as day_id,
+                 #{tses.itsdNum,jdbcType=VARCHAR} as Sourse_Detail_Num,
+                 #{tses.itsd,jdbcType=VARCHAR} as Sourse_Detail,
+                 #{tses.trafficSourse,jdbcType=VARCHAR} as Traffic_Sourse,
+                 #{tses.tsDetail,jdbcType=VARCHAR} as Traffic_Sourse_Detail,
+                 #{tses.uv,jdbcType=NUMERIC} as UV,
+                 #{tses.pv,jdbcType=NUMERIC} as PV,
+                 #{tses.bookMark,jdbcType=NUMERIC} as Book_Mark,
+                 #{tses.sCart,jdbcType=NUMERIC} as Shopping_Cart,
+                 #{tses.lossRate,jdbcType=NUMERIC} as Loss_Rate,
+                 #{tses.coValue,jdbcType=NUMERIC} as Create_Order_Value,
+                 #{tses.ccQty,jdbcType=NUMERIC} as Create_Customer_Qty,
+                 #{tses.salesValue,jdbcType=NUMERIC} as Sales_Value,
+                 #{tses.pcQty,jdbcType=NUMERIC} as Paid_Customer_Qty
+              from dummy
+             </foreach>
+      </insert>
+      
+      <select id="getById" resultType="TrafficSource" parameterType="TrafficSource">
+      	select Shop_Code as shopCode,day_id as dayId,Internal_Traffic_Sourse_Detail_Num as itsdNum,Internal_Traffic_Sourse_Detail as itsd,
+      	Traffic_Sourse as trafficSourse,Traffic_Sourse_Detail as tsDetail,
+      	UV as uv,PV as pv,Book_Mark as bookMark,Shopping_Cart as sCart,Loss_Rate as lossRate,
+      	Create_Order_Value as coValue,Create_Customer_Qty as ccQty,Sales_Value as salesValue,Paid_Customer_Qty as pcQty 
+      	from ODS_EC_TRAFFIC_SOURCE_DAY
+      	<where>
+      		<if test="dayId!=null">
+      			day_id=#{dayId,jdbcType=VARCHAR}
+      		</if>
+      		<if test="shopCode!=null">
+      			and Shop_Code=#{shopCode,jdbcType=VARCHAR}
+      		</if>
+      	</where>
+      </select>
+      
+      <delete id="deleteAll" parameterType="TrafficSource">
+      	delete from ODS_EC_TRAFFIC_SOURCE_DAY
+      	<where>
+      		<if test="dayId!=null">
+      			day_id=#{dayId,jdbcType=VARCHAR}
+      		</if>
+      		<if test="shopCode!=null">
+      			and Shop_Code=#{shopCode,jdbcType=VARCHAR}
+      		</if>
+      	</where>
+      </delete>
+</mapper>

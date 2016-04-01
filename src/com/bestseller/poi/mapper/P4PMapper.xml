@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bestseller.poi.mapper.P4PMapper">
+  	<insert id ="batchSave" parameterType="java.util.Map">
+             insert into
+             <if test="sheetName=='sample-p4p-day'">
+             	ODS_MARKETING_SAMPLE_P4P_DAY
+             </if>
+             <if test="sheetName=='sample-p4p-week'">
+             	ODS_MARKETING_SAMPLE_P4P_WEEK
+             </if>
+             <if test="sheetName=='sample-p4p-month'">
+             	ODS_MARKETING_SAMPLE_P4P_MONTH
+             </if>
+             (day_id,Project,Product,Search_Type,shop_code,Impression,Click,Cost,CTR,CPC,CPM,ROI_via_click,Direct_Turnover,Direct_Transactions,Indirect_Turnover,Indirect_Transactions,Total_Amount,Total_Transactions,Product_bookmark,Shop_bookmark,Total_Bookmark,ROI,Direct_shopping_cart,Indirect_shopping_cart,Total_shopping_cart,Product_Line)
+             select
+             day_id,Project,Product,Search_Type,shop_code,Impression,Click,Cost,CTR,CPC,CPM,ROI_via_click,Direct_Turnover,Direct_Transactions,Indirect_Turnover,Indirect_Transactions,Total_Amount,Total_Transactions,Product_bookmark,Shop_bookmark,Total_Bookmark,ROI,Direct_shopping_cart,Indirect_shopping_cart,Total_shopping_cart,Product_Line
+             from
+             <foreach collection ="p4ps" item="p4ps" index= "index" separator="union" open="(" close=")">
+ 			 select
+                 #{p4ps.dayId,jdbcType=VARCHAR} as day_id,
+                 #{p4ps.project,jdbcType=VARCHAR} as Project,
+                 #{p4ps.product,jdbcType=VARCHAR} as Product,
+                 #{p4ps.searchType,jdbcType=VARCHAR} as Search_Type,
+                 #{p4ps.shopCode,jdbcType=VARCHAR} as shop_code,
+                 #{p4ps.impression,jdbcType=NUMERIC} as Impression,
+                 #{p4ps.click,jdbcType=NUMERIC} as Click,
+                 #{p4ps.cost,jdbcType=NUMERIC} as Cost,
+                 #{p4ps.ctr,jdbcType=NUMERIC} as CTR,
+                 #{p4ps.cpc,jdbcType=NUMERIC} as CPC,
+                 #{p4ps.cpm,jdbcType=NUMERIC} as CPM,
+                 #{p4ps.rVClick,jdbcType=NUMERIC} as ROI_via_click,
+                 #{p4ps.dTurnover,jdbcType=NUMERIC} as Direct_Turnover,
+                 #{p4ps.dTransactions,jdbcType=NUMERIC} as Direct_Transactions,
+                 #{p4ps.iTurnover,jdbcType=NUMERIC} as Indirect_Turnover,
+                 #{p4ps.iTransactions,jdbcType=NUMERIC} as Indirect_Transactions,
+                 #{p4ps.tAmount,jdbcType=NUMERIC} as Total_Amount,
+                 #{p4ps.tTransactions,jdbcType=NUMERIC} as Total_Transactions,
+                 #{p4ps.pBookmark,jdbcType=NUMERIC} as Product_bookmark,
+                 #{p4ps.sBookmark,jdbcType=NUMERIC} as Shop_bookmark,
+                 #{p4ps.tBookmark,jdbcType=NUMERIC} as Total_Bookmark,
+                 #{p4ps.roi,jdbcType=NUMERIC} as ROI,
+                 #{p4ps.dsCart,jdbcType=NUMERIC} as Direct_shopping_cart,
+                 #{p4ps.isCart,jdbcType=NUMERIC} as Indirect_shopping_cart,
+                 #{p4ps.tsCart,jdbcType=NUMERIC} as Total_shopping_cart,
+                 #{p4ps.poductLine,jdbcType=VARCHAR} as Product_Line
+              from dummy
+             </foreach >
+      </insert >
+      
+      <select id="getById" resultType="P4P" parameterType="java.util.Map">
+      	select day_id as dayId,Project as project,Product as product,Search_Type as searchType,
+      	shop_code as shopCode,Impression as impression,Click as click,
+      	Cost as cost,CTR as ctr,CPC as cpc,CPM as cpm,ROI_via_click as rVClick,
+      	Direct_Turnover as dTurnover,Direct_Transactions as dTransactions,Indirect_Turnover as iTurnover,
+      	Indirect_Transactions as iTransactions,Total_Amount as tAmount,Total_Transactions as tTransactions,
+      	Product_bookmark as pBookmark,Shop_bookmark as sBookmark,Total_Bookmark as tBookmark,
+      	ROI as roi,Direct_shopping_cart as dsCart,Indirect_shopping_cart as isCart,
+      	Total_shopping_cart as tsCart,Product_Line as poductLine from
+      	<if test="sheetName=='sample-p4p-day'">
+        	ODS_MARKETING_SAMPLE_P4P_DAY
+        </if>
+        <if test="sheetName=='sample-p4p-week'">
+        	ODS_MARKETING_SAMPLE_P4P_WEEK
+        </if>
+        <if test="sheetName=='sample-p4p-month'">
+        	ODS_MARKETING_SAMPLE_P4P_MONTH
+        </if>
+        <where>
+        	<if test="p4p.dayId!=null">
+        		day_id=#{p4p.dayId,jdbcType=VARCHAR}
+        	</if>
+        	<if test="p4p.shopCode!=null">
+        		and shop_code=#{p4p.shopCode,jdbcType=VARCHAR}
+        	</if>
+        </where>
+      </select>
+      
+      <delete id="deleteAll" parameterType="java.util.Map">
+      	delete from
+	    <if test="sheetName=='sample-p4p-day'">
+        	ODS_MARKETING_SAMPLE_P4P_DAY
+        </if>
+        <if test="sheetName=='sample-p4p-week'">
+        	ODS_MARKETING_SAMPLE_P4P_WEEK
+        </if>
+        <if test="sheetName=='sample-p4p-month'">
+        	ODS_MARKETING_SAMPLE_P4P_MONTH
+        </if>
+        <where>
+        	<if test="p4p.dayId!=null">
+        		day_id=#{p4p.dayId,jdbcType=VARCHAR}
+        	</if>
+        	<if test="p4p.shopCode!=null">
+        		and shop_code=#{p4p.shopCode,jdbcType=VARCHAR}
+        	</if>
+        </where>
+      </delete>
+      
+</mapper>

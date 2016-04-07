@@ -5,7 +5,7 @@ public class P4P {
 	private String project;
 	private String product;
 	private String searchType;
-	private String shopCode;
+	private String trafficSource;
 	private Long impression;
 	private Long click;
 	private Long cost;
@@ -27,20 +27,23 @@ public class P4P {
 	private Integer isCart;
 	private Integer tsCart;
 	private String poductLine;
+	private String shopCode;
 	public P4P() {
 		super();
 	}
-	public P4P(String dayId, String project, String product, String searchType, String shopCode, Long impression,
-			Long click, Long cost, Double ctr, Double cpc, Double cpm, Double rVClick, Long dTurnover,
-			Integer dTransactions, Long iTurnover, Integer iTransactions, Long tAmount, Integer tTransactions,
-			Integer pBookmark, Integer sBookmark, Integer tBookmark, Double roi, Integer dsCart, Integer isCart,
-			Integer tsCart, String poductLine) {
+	public P4P(String dayId, String project, String product, String searchType,
+			String trafficSource, Long impression, Long click, Long cost,
+			Double ctr, Double cpc, Double cpm, Double rVClick, Long dTurnover,
+			Integer dTransactions, Long iTurnover, Integer iTransactions,
+			Long tAmount, Integer tTransactions, Integer pBookmark,
+			Integer sBookmark, Integer tBookmark, Double roi, Integer dsCart,
+			Integer isCart, Integer tsCart, String poductLine, String shopCode) {
 		super();
 		this.dayId = dayId;
 		this.project = project;
 		this.product = product;
 		this.searchType = searchType;
-		this.shopCode = shopCode;
+		this.trafficSource = trafficSource;
 		this.impression = impression;
 		this.click = click;
 		this.cost = cost;
@@ -62,6 +65,14 @@ public class P4P {
 		this.isCart = isCart;
 		this.tsCart = tsCart;
 		this.poductLine = poductLine;
+		this.shopCode = shopCode;
+	}
+
+	public String getTrafficSource() {
+		return trafficSource;
+	}
+	public void setTrafficSource(String trafficSource) {
+		this.trafficSource = trafficSource;
 	}
 	public String getDayId() {
 		return dayId;

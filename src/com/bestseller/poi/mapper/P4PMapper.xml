@@ -12,9 +12,9 @@
              <if test="sheetName=='sample-p4p-month'">
              	ODS_MARKETING_SAMPLE_P4P_MONTH
              </if>
-             (day_id,Project,Product,Search_Type,shop_code,Impression,Click,Cost,CTR,CPC,CPM,ROI_via_click,Direct_Turnover,Direct_Transactions,Indirect_Turnover,Indirect_Transactions,Total_Amount,Total_Transactions,Product_bookmark,Shop_bookmark,Total_Bookmark,ROI,Direct_shopping_cart,Indirect_shopping_cart,Total_shopping_cart,Product_Line)
+             (day_id,Project,Product,Search_Type,Traffic_Source,Impression,Click,Cost,CTR,CPC,CPM,ROI_via_click,Direct_Turnover,Direct_Transactions,Indirect_Turnover,Indirect_Transactions,Total_Amount,Total_Transactions,Product_bookmark,Shop_bookmark,Total_Bookmark,ROI,Direct_shopping_cart,Indirect_shopping_cart,Total_shopping_cart,Product_Line,shop_code)
              select
-             day_id,Project,Product,Search_Type,shop_code,Impression,Click,Cost,CTR,CPC,CPM,ROI_via_click,Direct_Turnover,Direct_Transactions,Indirect_Turnover,Indirect_Transactions,Total_Amount,Total_Transactions,Product_bookmark,Shop_bookmark,Total_Bookmark,ROI,Direct_shopping_cart,Indirect_shopping_cart,Total_shopping_cart,Product_Line
+             day_id,Project,Product,Search_Type,Traffic_Source,Impression,Click,Cost,CTR,CPC,CPM,ROI_via_click,Direct_Turnover,Direct_Transactions,Indirect_Turnover,Indirect_Transactions,Total_Amount,Total_Transactions,Product_bookmark,Shop_bookmark,Total_Bookmark,ROI,Direct_shopping_cart,Indirect_shopping_cart,Total_shopping_cart,Product_Line,shop_code
              from
              <foreach collection ="p4ps" item="p4ps" index= "index" separator="union" open="(" close=")">
  			 select
@@ -22,7 +22,7 @@
                  #{p4ps.project,jdbcType=VARCHAR} as Project,
                  #{p4ps.product,jdbcType=VARCHAR} as Product,
                  #{p4ps.searchType,jdbcType=VARCHAR} as Search_Type,
-                 #{p4ps.shopCode,jdbcType=VARCHAR} as shop_code,
+                 #{p4ps.trafficSource,jdbcType=VARCHAR} as Traffic_Source,
                  #{p4ps.impression,jdbcType=NUMERIC} as Impression,
                  #{p4ps.click,jdbcType=NUMERIC} as Click,
                  #{p4ps.cost,jdbcType=NUMERIC} as Cost,
@@ -43,20 +43,21 @@
                  #{p4ps.dsCart,jdbcType=NUMERIC} as Direct_shopping_cart,
                  #{p4ps.isCart,jdbcType=NUMERIC} as Indirect_shopping_cart,
                  #{p4ps.tsCart,jdbcType=NUMERIC} as Total_shopping_cart,
-                 #{p4ps.poductLine,jdbcType=VARCHAR} as Product_Line
+                 #{p4ps.poductLine,jdbcType=VARCHAR} as Product_Line,
+                 #{p4ps.shopCode,jdbcType=VARCHAR} as shop_code
               from dummy
              </foreach >
       </insert >
       
       <select id="getById" resultType="P4P" parameterType="java.util.Map">
       	select day_id as dayId,Project as project,Product as product,Search_Type as searchType,
-      	shop_code as shopCode,Impression as impression,Click as click,
+      	Traffic_Source as trafficSource,Impression as impression,Click as click,
       	Cost as cost,CTR as ctr,CPC as cpc,CPM as cpm,ROI_via_click as rVClick,
       	Direct_Turnover as dTurnover,Direct_Transactions as dTransactions,Indirect_Turnover as iTurnover,
       	Indirect_Transactions as iTransactions,Total_Amount as tAmount,Total_Transactions as tTransactions,
       	Product_bookmark as pBookmark,Shop_bookmark as sBookmark,Total_Bookmark as tBookmark,
       	ROI as roi,Direct_shopping_cart as dsCart,Indirect_shopping_cart as isCart,
-      	Total_shopping_cart as tsCart,Product_Line as poductLine from
+      	Total_shopping_cart as tsCart,Product_Line as poductLine,shop_code as shopCode from
       	<if test="sheetName=='sample-p4p-day'">
         	ODS_MARKETING_SAMPLE_P4P_DAY
         </if>

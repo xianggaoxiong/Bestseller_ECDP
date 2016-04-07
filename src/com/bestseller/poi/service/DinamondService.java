@@ -389,12 +389,12 @@ public class DinamondService {
 			searchType = getCellValue(cell);
 		}
 		 
-		
 		cell = row.getCell(4);
-		String shopCode=null;
+		String trafficSource=null;
 		if(cell!=null&&getCellValue(cell)!=null){
-			shopCode = getCellValue(cell);
+			trafficSource = getCellValue(cell);
 		}
+		
 		
 		cell = row.getCell(5);
 		Long impression=null;
@@ -523,7 +523,13 @@ public class DinamondService {
 			poductLine = getCellValue(cell);
 		}
 		
-		p4p=new P4P(dayId, project, product, searchType, shopCode, impression, click, cost, ctr, cpc, cpm, rVClick, dTurnover, dTransactions, iTurnover, iTransactions, tAmount, tTransactions, pBookmark, sBookmark, tBookmark, roi, dsCart, isCart, tsCart, poductLine);
+		cell = row.getCell(26);
+		String shopCode=null;
+		if(cell!=null&&getCellValue(cell)!=null){
+			shopCode = getCellValue(cell);
+		}
+		
+		p4p=new P4P(dayId, project, product, searchType, trafficSource, impression, click, cost, ctr, cpc, cpm, rVClick, dTurnover, dTransactions, iTurnover, iTransactions, tAmount, tTransactions, pBookmark, sBookmark, tBookmark, roi, dsCart, isCart, tsCart, poductLine, shopCode);
 		return p4p;
 	}
 	

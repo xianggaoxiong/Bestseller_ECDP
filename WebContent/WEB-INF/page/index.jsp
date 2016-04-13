@@ -11,9 +11,22 @@
 	
 	<form action="${pageContext.request.contextPath }/upload" method="post" enctype="multipart/form-data">
 		<fieldset style="text-align:center">
-			请&nbsp;输&nbsp;入&nbsp;p4p&nbsp;的&nbsp;sheet&nbsp;工&nbsp;作&nbsp;表&nbsp;名:<input type="text" name="p4pName"/><br/><br/>
-			请输入sampleDiamond的sheet工作表名:<input type="text" name="diamondName"/><br/><br/>
-			将Excel表的数据导入数据库:<input type="file" name="file"/>
+			请&nbsp;输&nbsp;入&nbsp;p4p&nbsp;的&nbsp;sheet&nbsp;工&nbsp;作&nbsp;表&nbsp;名:
+			<select name="p4pName">
+				<option value="">请选择...</option>
+				<option value="sample-p4p-day">sample-p4p-day</option>
+				<option value="sample-p4p-week">sample-p4p-week</option>
+				<option value="sample-p4p-month">sample-p4p-month</option>
+			</select><br><br>
+			请输入sampleDiamond的sheet工作表名:
+			<select name="diamondName">
+				<option value="">请选择...</option>
+				<option value="diamond-day">diamond-day</option>
+				<option value="diamond-week">diamond-week</option>
+				<option value="diamond-month">diamond-month</option>
+			</select><br><br>
+			将Excel表的数据导入数据库:
+			<input type="file" name="file"/>
 			<input type="submit" value="上传"/>
 		</fieldset>
 	</form>

@@ -142,12 +142,16 @@ public class CTService {
 		String dayId=null;
 		if(cell!=null&&getCellValue(cell)!=null){
 			dayId = getCellValue(cell);
+		}else{
+			throw new NumberFormatException("日期为空!");
 		}
 		
 		cell = row.getCell(1);
 		String shopCode=null;
 		if(cell!=null&&getCellValue(cell)!=null){
 			shopCode = getCellValue(cell);
+		}else{
+			throw new NumberFormatException("店铺代码为空!");
 		}
 		
 		cell = row.getCell(2);
@@ -315,12 +319,16 @@ public class CTService {
 		String shopCode=null;
 		if(cell!=null&&getCellValue(cell)!=null){
 			shopCode = getCellValue(cell);
+		}else{
+			throw new NumberFormatException("店铺代码为空!");
 		}
 		
 		cell = row.getCell(1);
 		String dayId=null;
 		if(cell!=null&&getCellValue(cell)!=null){
 			dayId = getCellValue(cell);
+		}else{
+			throw new NumberFormatException("日期为空!");
 		}
 		
 		cell = row.getCell(2);

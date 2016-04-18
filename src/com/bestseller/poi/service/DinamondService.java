@@ -324,6 +324,8 @@ public class DinamondService {
 		String sCode=null;
 		if(cell!=null&&getCellValue(cell)!=null){
 			sCode=getCellValue(cell);
+		}else{
+			throw new NumberFormatException("店铺代码为空!");
 		}
 		
 		cell=row.getCell(27);
@@ -342,6 +344,8 @@ public class DinamondService {
 		String dayId=null;
 		if(cell!=null&&getCellValue(cell)!=null){
 			dayId=getCellValue(cell);
+		}else{
+			throw new NumberFormatException("日期为空!");
 		}
 		
 		dss=new DiamondStarShop(conditio, unit, project, impression, click, ctr, cost, cpm, cpc, tdRoi, sdRoi, fdRoi, tdOrders, sdOrders, fdOrders, sBookmark, pBookmark, visits, tdVisits, sdVisits, fdVisits, tdvImpre, sdvImpre, fdvImpre, sdAmount, fdAmount, sCode, cCategory, dStarShop, dayId);
@@ -366,6 +370,8 @@ public class DinamondService {
 		String dayId=null;
 		if(cell!=null&&getCellValue(cell)!=null){
 			dayId = getCellValue(cell);
+		}else{
+			throw new NumberFormatException("日期为空!");
 		}
 		
 		
@@ -527,6 +533,8 @@ public class DinamondService {
 		String shopCode=null;
 		if(cell!=null&&getCellValue(cell)!=null){
 			shopCode = getCellValue(cell);
+		}else{
+			throw new NumberFormatException("店铺代码为空!");
 		}
 		
 		p4p=new P4P(dayId, project, product, searchType, trafficSource, impression, click, cost, ctr, cpc, cpm, rVClick, dTurnover, dTransactions, iTurnover, iTransactions, tAmount, tTransactions, pBookmark, sBookmark, tBookmark, roi, dsCart, isCart, tsCart, poductLine, shopCode);

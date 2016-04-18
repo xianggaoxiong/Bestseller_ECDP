@@ -39,16 +39,26 @@ public class FileUpload {
 	    File f = fi.getStoreLocation();
 	    boolean upload =false;
 	    if(!p4pName.trim().equals("")||!diamondName.trim().equals("")){
-	    	upload = dinamondService.upload(f,p4pName,diamondName);
-	    	if(!upload){
-				map.put("error","上传失败，请确保sheet工作名正确和存在！");
+	    	try {
+				upload = dinamondService.upload(f,p4pName,diamondName);
+				if(!upload){
+					map.put("error","上传失败，请确保sheet工作名正确和存在！");
+				}
+			} catch (NumberFormatException e) {
+				map.put("error", "上传失败,请确保店铺代码或日期存在!");
+				return "success";
 			}
 	    	return "success";
 	    }
 	    if(!upload){
-			boolean b=cTService.upload(f);
-			if(!b){
-				map.put("error","上传失败，请确保sheet工作名正确和存在！");
+			try {
+				boolean b=cTService.upload(f);
+				if(!b){
+					map.put("error","上传失败，请确保sheet工作名正确和存在！");
+				}
+			} catch (NumberFormatException e) {
+				map.put("error", "上传失败,请确保店铺代码或日期存在!");
+				return "success";
 			}
 			return "success";
 	    }

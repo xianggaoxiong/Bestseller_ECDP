@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -86,7 +87,7 @@ public class DinamondService {
 				}
 			}
 			
-			List<P4P> p4pes=new ArrayList<>();
+			List<P4P> p4pes=new LinkedList<P4P>();
 			if(p4ps.size()>500){
 				for(int i=0;i<p4ps.size();i++){
 					p4pes.add(p4ps.get(i));
@@ -125,7 +126,7 @@ public class DinamondService {
 				}
 			}
 			if(dsses.size()>500){
-				List<DiamondStarShop> dsss=new ArrayList<>();
+				List<DiamondStarShop> dsss=new LinkedList<DiamondStarShop>();
 				for(int i=0;i<dsses.size();i++){
 					dsss.add(dsses.get(i));
 					if(i%500==0){

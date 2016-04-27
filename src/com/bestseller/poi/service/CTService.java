@@ -8,6 +8,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.poi.ss.usermodel.Cell;
@@ -69,7 +70,7 @@ public class CTService {
 			}
 			
 			if(tsess.size()>500){
-				List<TrafficSource> tses=new ArrayList<>();
+				List<TrafficSource> tses=new LinkedList<TrafficSource>();
 				for(int i=0;i<tsess.size();i++){
 					tses.add(tsess.get(i));
 					if(i%500==0){
@@ -105,7 +106,7 @@ public class CTService {
 			}
 			
 			if(csStaffess.size()>500){
-				List<CsStaff> csStaffes = new ArrayList<>();
+				List<CsStaff> csStaffes = new LinkedList<CsStaff>();
 				for(int i=0;i<csStaffess.size();i++){
 					csStaffes.add(csStaffess.get(i));
 					if(i%500==0){
@@ -131,7 +132,7 @@ public class CTService {
 		for (int i = 2; i <= sheet.getLastRowNum(); i++) {
 			Row row = sheet.getRow(i);
 			CsStaff csStaff = parseToCsStaff(row);
-			if (csStaff != null) {
+			if (csStaff != null&&csStaff.getShopCode()!=null) {
 				csStaffes.add(csStaff);
 			}
 		}
@@ -307,7 +308,7 @@ public class CTService {
 		for (int i = 2; i <= sheet.getLastRowNum(); i++) {
 			Row row = sheet.getRow(i);
 			TrafficSource ts = parseToTSS(row);
-			if (ts != null) {
+			if (ts != null&&ts.getShopCode()!=null) {
 				tses.add(ts);
 			}
 		}

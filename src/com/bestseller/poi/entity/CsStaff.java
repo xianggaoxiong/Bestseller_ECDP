@@ -24,17 +24,15 @@ public class CsStaff {
 	private Double qaRate;
 	private Double wwrr;
 	private Long notReply;
+	private Long mriMeanwhile;
+	private Long mediumComment;
+	private Long badComment;
 	private Double remarkA;
 	private Double remarkB;
 	private String remarkC;
-	
-	
-	
 	public CsStaff() {
 		super();
 	}
-	
-
 	public CsStaff(String dayId, String shopCode, String preAfter, String wwNo,
 			String staffName, Double vovaConsulation, Long consulation,
 			Long reception, Double salesValue, Double avgResponse,
@@ -42,6 +40,7 @@ public class CsStaff {
 			Double sroEvaluation, String arTime, Double artSecond,
 			Double vopRate, Double returnValue, String onlineTime,
 			Double otSecond, Double qaRate, Double wwrr, Long notReply,
+			Long mriMeanwhile, Long mediumComment, Long badComment,
 			Double remarkA, Double remarkB, String remarkC) {
 		super();
 		this.dayId = dayId;
@@ -67,74 +66,13 @@ public class CsStaff {
 		this.qaRate = qaRate;
 		this.wwrr = wwrr;
 		this.notReply = notReply;
+		this.mriMeanwhile = mriMeanwhile;
+		this.mediumComment = mediumComment;
+		this.badComment = badComment;
 		this.remarkA = remarkA;
 		this.remarkB = remarkB;
 		this.remarkC = remarkC;
 	}
-
-
-
-
-	public Long getConsulation() {
-		return consulation;
-	}
-
-
-	public void setConsulation(Long consulation) {
-		this.consulation = consulation;
-	}
-
-
-	public Double getWwrr() {
-		return wwrr;
-	}
-
-
-	public void setWwrr(Double wwrr) {
-		this.wwrr = wwrr;
-	}
-
-
-	public Long getNotReply() {
-		return notReply;
-	}
-
-
-	public void setNotReply(Long notReply) {
-		this.notReply = notReply;
-	}
-
-
-	public Double getRemarkA() {
-		return remarkA;
-	}
-
-
-	public void setRemarkA(Double remarkA) {
-		this.remarkA = remarkA;
-	}
-
-
-	public Double getRemarkB() {
-		return remarkB;
-	}
-
-
-	public void setRemarkB(Double remarkB) {
-		this.remarkB = remarkB;
-	}
-
-
-	public String getRemarkC() {
-		return remarkC;
-	}
-
-
-	public void setRemarkC(String remarkC) {
-		this.remarkC = remarkC;
-	}
-
-
 	public String getDayId() {
 		return dayId;
 	}
@@ -146,6 +84,12 @@ public class CsStaff {
 	}
 	public void setShopCode(String shopCode) {
 		this.shopCode = shopCode;
+	}
+	public String getPreAfter() {
+		return preAfter;
+	}
+	public void setPreAfter(String preAfter) {
+		this.preAfter = preAfter;
 	}
 	public String getWwNo() {
 		return wwNo;
@@ -164,6 +108,12 @@ public class CsStaff {
 	}
 	public void setVovaConsulation(Double vovaConsulation) {
 		this.vovaConsulation = vovaConsulation;
+	}
+	public Long getConsulation() {
+		return consulation;
+	}
+	public void setConsulation(Long consulation) {
+		this.consulation = consulation;
 	}
 	public Long getReception() {
 		return reception;
@@ -249,11 +199,54 @@ public class CsStaff {
 	public void setQaRate(Double qaRate) {
 		this.qaRate = qaRate;
 	}
-	public String getPreAfter() {
-		return preAfter;
+	public Double getWwrr() {
+		return wwrr;
 	}
-	public void setPreAfter(String preAfter) {
-		this.preAfter = preAfter;
+	public void setWwrr(Double wwrr) {
+		this.wwrr = wwrr;
 	}
+	public Long getNotReply() {
+		return notReply;
+	}
+	public void setNotReply(Long notReply) {
+		this.notReply = notReply;
+	}
+	public Long getMriMeanwhile() {
+		return mriMeanwhile;
+	}
+	public void setMriMeanwhile(Long mriMeanwhile) {
+		this.mriMeanwhile = mriMeanwhile;
+	}
+	public Long getMediumComment() {
+		return mediumComment;
+	}
+	public void setMediumComment(Long mediumComment) {
+		this.mediumComment = mediumComment;
+	}
+	public Long getBadComment() {
+		return badComment;
+	}
+	public void setBadComment(Long badComment) {
+		this.badComment = badComment;
+	}
+	public Double getRemarkA() {
+		return remarkA;
+	}
+	public void setRemarkA(Double remarkA) {
+		this.remarkA = remarkA;
+	}
+	public Double getRemarkB() {
+		return remarkB;
+	}
+	public void setRemarkB(Double remarkB) {
+		this.remarkB = remarkB;
+	}
+	public String getRemarkC() {
+		return remarkC;
+	}
+	public void setRemarkC(String remarkC) {
+		this.remarkC = remarkC;
+	}
+	
 	
 }

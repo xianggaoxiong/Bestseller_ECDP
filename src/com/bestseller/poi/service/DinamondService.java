@@ -96,7 +96,7 @@ public class DinamondService {
 						p4pMapper.batchSave(map);
 						p4pes.clear();
 					}
-					if(i==p4ps.size()-1){
+					if(i==p4ps.size()-1 && i%500!=0){
 						map.put("p4ps", p4pes);
 						p4pMapper.batchSave(map);
 					}
@@ -134,7 +134,7 @@ public class DinamondService {
 						dssMapper.batchSave(map);
 						dsss.clear();
 					}
-					if(i==dsses.size()-1){
+					if(i==dsses.size()-1 && i%500!=0){
 						map.put("dsses", dsss);
 						dssMapper.batchSave(map);
 					}

@@ -6,10 +6,10 @@
              (Day_ID,Shop_Code,Pre_After,WangWang_No,Staff_Name,Visitor_Order_Value_After_Consultation,
              Consultation,Reception,Sales_Value,Avg_Response,Basket_Value,Basket_Size,Satisfaction,
              Sending_Rate_Of_Evaluation,Avg_Reception_Time,Avg_Reception_Time_Second,Visitor_Order_Pay_Rate,Return_Value,Online_Time,Online_Time_Second,QA_Rate,
-             WangWang_Reply_rate,Not_reply,Remark_A,Remark_B,Remark_C)
+             WangWang_Reply_rate,Not_reply,MAX_RECEPTION_IN_MEANWHILE,MEDIUM_COMMENT,BAD_COMMENT,Remark_A,Remark_B,Remark_C)
              select
              Day_ID,Shop_Code,Pre_After,WangWang_No,Staff_Name,VOValue_After_Consultation,Consultation,Reception,Sales_Value,Avg_Response,Basket_Value,Basket_Size,Satisfaction,Sending_Rate_Of_Evaluation,Avg_Reception_Time,Avg_Reception_Time_Second,Visitor_Order_Pay_Rate,Return_Value,Online_Time,Online_Time_Second,
-             QA_Rate,WangWang_Reply_rate,Not_reply,Remark_A,Remark_B,Remark_C
+             QA_Rate,WangWang_Reply_rate,Not_reply,MAX_RECEPTION_IN_MEANWHILE,MEDIUM_COMMENT,BAD_COMMENT,Remark_A,Remark_B,Remark_C
              from
              <foreach collection ="list" item="csStaffes" index= "index" separator="union" open="(" close=")">
  			 select
@@ -36,6 +36,9 @@
                  #{csStaffes.qaRate,jdbcType=NUMERIC} as QA_Rate,
                  #{csStaffes.wwrr,jdbcType=NUMERIC} as WangWang_Reply_rate,
                  #{csStaffes.notReply,jdbcType=NUMERIC} as Not_reply,
+                 #{csStaffes.mriMeanwhile,jdbcType=NUMERIC} as MAX_RECEPTION_IN_MEANWHILE,
+                 #{csStaffes.mediumComment,jdbcType=NUMERIC} as MEDIUM_COMMENT,
+                 #{csStaffes.badComment,jdbcType=NUMERIC} as BAD_COMMENT,
                  #{csStaffes.remarkA,jdbcType=NUMERIC} as Remark_A,
                  #{csStaffes.remarkB,jdbcType=NUMERIC} as Remark_B,
                  #{csStaffes.remarkC,jdbcType=VARCHAR} as Remark_C
@@ -51,7 +54,7 @@
       	Sending_Rate_Of_Evaluation as sroEvaluation,Avg_Reception_Time as arTime,
       	Avg_Reception_Time_Second as artSecond,Visitor_Order_Pay_Rate as vopRate,
       	Return_Value as returnValue,Online_Time as onlineTime,Online_Time_Second as otSecond,QA_Rate as qaRate,WangWang_Reply_rate as wwrr,
-      	Not_reply as notReply,Remark_A as remarkA,Remark_B as remarkB,Remark_C as remarkC 
+      	Not_reply as notReply,MAX_RECEPTION_IN_MEANWHILE as mriMeanwhile,MEDIUM_COMMENT as mediumComment,BAD_COMMENT as badComment,Remark_A as remarkA,Remark_B as remarkB,Remark_C as remarkC 
       	from  ODS_EC_CS_STAFF_PERFORMANCE
       	<where>
       		<if test="dayId!=null">

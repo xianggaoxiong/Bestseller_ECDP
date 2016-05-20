@@ -16,6 +16,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.bestseller.poi.service.CTService;
 import com.bestseller.poi.service.DinamondService;
+import com.bestseller.poi.service.RepeatCampaignService;
 
 /** 
 * @author  xgx@bestseller.com.cn 
@@ -28,6 +29,9 @@ public class FileUpload {
 	private DinamondService dinamondService;
 	@Autowired
 	private CTService cTService;
+	@Autowired
+	private RepeatCampaignService rcService;
+	
 	private static final Logger LOGGER=LoggerFactory.getLogger(FileUpload.class);
 	
 	@RequestMapping(value="/upload",method=RequestMethod.POST)
@@ -47,20 +51,38 @@ public class FileUpload {
 			} catch (NumberFormatException e) {
 				map.put("error", "上传失败,请确保店铺代码或日期存在!");
 				return "success";
+			} catch (Exception e){
+				e.printStackTrace();
 			}
 	    	return "success";
 	    }
+	    
+	    boolean b=false;
 	    if(!upload){
 			try {
-				boolean b=cTService.upload(f);
+				b=cTService.upload(f);
 				if(!b){
 					map.put("error","上传失败，请确保sheet工作名正确和存在！");
+				}else{
+					return "success";
 				}
 			} catch (NumberFormatException e) {
 				map.put("error", "上传失败,请确保店铺代码或日期存在!");
 				return "success";
+			} catch(Exception e){
+				e.printStackTrace();
 			}
-			return "success";
+	    }
+	    
+	    //Campaign和repeat两张表的上传
+	    boolean rc=false;
+	    if(!upload&&!b){
+	    	map.remove("error");
+	    	rc=rcService.upload(f);
+	    	if(!rc){
+	    		map.put("error","上传失败，请确保sheet工作名正确和存在！");
+	    	}
+	    	return "success";
 	    }
 		return null;
 	}

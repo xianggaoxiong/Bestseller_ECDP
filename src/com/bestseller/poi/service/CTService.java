@@ -77,7 +77,7 @@ public class CTService {
 						tsMapper.batchSave(tses);
 						tses.clear();
 					}
-					if(i==tsess.size()-1){
+					if(i==tsess.size()-1 && i%500!=0){
 						tsMapper.batchSave(tses);
 					}
 				}
@@ -113,7 +113,7 @@ public class CTService {
 						csStaffMapper.batchSave(csStaffes);
 						csStaffes.clear();
 					}
-					if(i==csStaffess.size()-1){
+					if(i==csStaffess.size()-1 && i%500!=0){
 						csStaffMapper.batchSave(csStaffes);
 					}
 				}
@@ -281,24 +281,42 @@ public class CTService {
 			notReply = (long) Double.parseDouble(getCellValue(cell));
 		}
 		
-		cell = row.getCell(23);
+		cell=row.getCell(23);
+		Long mriMeanwhile=null;
+		if(cell!=null&&getCellValue(cell)!=null){
+			mriMeanwhile=(long)Double.parseDouble(getCellValue(cell));
+		}
+		
+		cell=row.getCell(24);
+		Long mediumComment=null;
+		if(cell!=null&&getCellValue(cell)!=null){
+			mediumComment=(long)Double.parseDouble(getCellValue(cell));
+		}
+		
+		cell=row.getCell(25);
+		Long badComment=null;
+		if(cell!=null&&getCellValue(cell)!=null){
+			badComment=(long)Double.parseDouble(getCellValue(cell));
+		}
+		
+		cell = row.getCell(26);
 		Double remarkA=null;
 		if(cell!=null&&getCellValue(cell)!=null){
 			remarkA = Double.parseDouble(getCellValue(cell));
 		}
 		
-		cell = row.getCell(24);
+		cell = row.getCell(27);
 		Double remarkB=null;
 		if(cell!=null&&getCellValue(cell)!=null){
 			remarkB = Double.parseDouble(getCellValue(cell));
 		}
 		
-		cell = row.getCell(25);
+		cell = row.getCell(28);
 		String remarkC=null;
 		if(cell!=null&&getCellValue(cell)!=null){
 			remarkC = getCellValue(cell);
 		}
-		csStaff=new CsStaff(dayId, shopCode, preAfter, wwNo, staffName, vovaConsulation, consulation, reception, salesValue, avgResponse, basketValue, basketSize, satisfaction, sroEvaluation, arTime, artSecond, vopRate, returnValue, onlineTime, otSecond, qaRate, wwrr, notReply, remarkA, remarkB, remarkC);
+		csStaff=new CsStaff(dayId, shopCode, preAfter, wwNo, staffName, vovaConsulation, consulation, reception, salesValue, avgResponse, basketValue, basketSize, satisfaction, sroEvaluation, arTime, artSecond, vopRate, returnValue, onlineTime, otSecond, qaRate, wwrr, notReply, mriMeanwhile, mediumComment, badComment, remarkA, remarkB, remarkC);
 		return csStaff;
 	}
 
